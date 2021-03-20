@@ -5,9 +5,9 @@
           <ul>
             <li class="pullDown">{{pullDownMsg}}</li>
             <li v-for="item in movieList" :key="item.id">
-                <div class="pic_show" @click="handleToDetail()"><img :src="item.img | setWH('128.180')"></div>
+                <div class="pic_show" @click="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')"></div>
                 <div class="info_list">
-                    <h2>{{item.nm}} <img v-if="item.version" style="height:20px;width:20px" src="/images/3D.png" alt=""></h2>
+                    <h2 @click="handleToDetail(item.id)">{{item.nm}} <img v-if="item.version" style="height:20px;width:20px" src="/images/3D.png" alt=""></h2>
                     <p>评分<span class="grade">{{item.sc}}</span></p>
                     <p>主演：{{item.star}}</p>
                     <p>{{item.showInfo}}</p>
@@ -39,43 +39,13 @@ export default {
         this.axios.get('/ajax/movieOnInfoList').then((res)=>{
             this.movieList=res.data.movieList;
             this.isLoading=false;
-            /* this.$nextTick(()=>{
-                
-                var scroll = new BScroll(this.$refs.movie_body,{
-                    tap:true,
-                    click:true,
-                    probeType:1
-                });
-                scroll.on('scroll',(pos)=>{
-                    //console.log('scroll');
-                    if(pos.y>30){
-                        this.pullDownMsg='刷新中';
-                    }
-                });
-                scroll.on("touchEnd",(pos)=>{
-                    //console.log('end');
-                    
-                    if(pos.y>30){
-                        this.axios.get('/ajax/movieOnInfoList').then((res)=>{
-                            this.pullDownMsg='刷新成功';
-                            setTimeout(()=>{
-                                this.movieList=res.data.movieList;
-                                this.pullDownMsg='';
-                            },1000)
-                        
-                        })
-                        
-                    }
-                });
-                
-                
-            }); */
+    
             
         }); 
     },
     methods : {
-        handleToDetail(){
-            console.log('handleToDetail');
+        handleToDetail(movieId){
+            this.$router.push('/movie/detail/1/' +movieId)
         },
         handleToScroll(pos){
             if(pos.y>30){

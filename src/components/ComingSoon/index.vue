@@ -5,9 +5,9 @@
           <ul>
               
             <li v-for="item in coming" :key="item.id">
-              <div class="pic_show"><img :src="item.img | setWH('128.180')" alt=""></div>
+              <div class="pic_show" @click="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')" alt=""></div>
               <div class="info_list">
-                  <h2>{{item.nm}}<img v-if="item.version" style="height:20px;width:20px" src="/images/3D.png" alt=""></h2>
+                  <h2 @click="handleToDetail(item.id)">{{item.nm}}<img v-if="item.version" style="height:20px;width:20px" src="/images/3D.png" alt=""></h2>
                   <p><span class="person">{{item.wish}}</span>人想看</p>
                   <p>主演{{item.star}}</p>
                   <p>{{item.showInfo}}</p>
@@ -35,6 +35,11 @@ export default {
             this.coming=res.data.coming;
             this.isLoading=false;
         });
+    },
+    methods:{
+        handleToDetail(movieId){
+            this.$router.push('/movie/detail/2/'+movieId);
+        }
     }
     
 }
