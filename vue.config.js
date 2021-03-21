@@ -9,6 +9,8 @@ module.exports ={
                 target:'https://m.maoyan.com',
                 changeOrigin:true
             }
-        }
-    }
+        } 
+        
+    },
+    publicPath: './'
 }
